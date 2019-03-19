@@ -1,0 +1,20 @@
+{
+  "name": "seeds",
+  "version": "1.0.0",
+  "description": "seeding data for manage-projects application",
+  "main": "index.js",
+  "scripts": {
+    "init": "./node_modules/.bin/knex init",
+    "seed:make": "./node_modules/.bin/knex seed:make --",
+    "seed:run": "./node_modules/.bin/knex seed:run",
+    "seed:help": "./node_modules/.bin/knex --help",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Alex Nikitin",
+  "license": "ISC",
+  "dependencies": {
+    "faker": "^4.1.0",
+    "knex": "^0.16.3",
+    "pg": "^7.8.1"
+  }
+}

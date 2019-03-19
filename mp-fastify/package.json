@@ -1,0 +1,30 @@
+{
+  "name": "mp-fastify",
+  "version": "1.0.0",
+  "description": "A web application to manage personal projects",
+  "main": "app.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "tap test/**/*.test.js",
+    "start": "fastify start -l info ./app.js",
+    "dev": "fastify start -l info -P -w ./app.js"
+  },
+  "keywords": [],
+  "author": "Alex Nikitin <iamalexnikitin@gmail.com",
+  "license": "ISC",
+  "dependencies": {
+    "fastify": "^2.0.0",
+    "fastify-autoload": "^0.6.0",
+    "fastify-cli": "^1.0.0",
+    "fastify-cors": "next",
+    "fastify-helmet": "^3.0.0",
+    "fastify-plugin": "^1.5.0",
+    "google-protobuf": "^3.7.0",
+    "grpc": "^1.19.0"
+  },
+  "devDependencies": {
+    "tap": "^12.5.3"
+  }
+}

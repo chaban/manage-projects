@@ -1,0 +1,46 @@
+<div class="container">
+  <!-- PROJECTS LIST -->
+  <div class="col-50">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title (click)="list()">
+          <h2>Users</h2>
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-list>
+          <mat-list-item (click)="selectUser(user)" *ngFor="let user of users">
+            <h3 mat-line>
+              {{user.name}}
+            </h3>
+            <p mat-line>
+              {{user.email}}
+            </p>
+            <button mat-icon-button (click)="del(user);$event.stopImmediatePropagation();">
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-list-item>
+        </mat-list>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <!-- PROJECT DETAILS -->
+  <div class="col-50">
+    <mat-card>
+      <form (submit)="save(selectedUser);$event.stopImmediatePropagation();">
+        <mat-card-content>
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Name" type="text" name="name" [(ngModel)]="selectedUser.name">
+          </mat-form-field>
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Email" type="text" name="email" [(ngModel)]="selectedUser.email">
+          </mat-form-field>
+        </mat-card-content>
+        <mat-card-actions>
+          <button type="submit" mat-button color="accent">Save</button>
+          <button type="button" mat-button (click)="cancel()">Cancel</button>
+        </mat-card-actions>
+      </form>
+    </mat-card>
+  </div>
+</div>

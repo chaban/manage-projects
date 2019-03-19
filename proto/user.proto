@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+package ormpb;
+option go_package="ormpb";
+
+message User {
+    //uint32 id = 1;
+    string name = 1;
+    string email = 2;
+    string role = 3;
+    string password = 4;
+    string profile = 5;
+}
+
+message UserId {
+    uint32 id = 1;
+}
+
+message UserList {
+    uint32 limit = 1;
+    uint32 offset = 2;
+}
+
+message UserCreate {
+	string data = 1;
+    //User user = 1;
+}
+
+message UserUpdate {
+	uint32 id = 1;
+	string data = 2;
+    //User user = 1;
+}
+
+message UserDelete {
+    uint32 id = 1;
+}
+
+message UserResponse {
+    string result = 1;
+}
+
+service UserService{
+
+    rpc ById(UserId) returns (UserResponse) {};
+    rpc List(UserList) returns (UserResponse) {};
+    rpc Create(UserCreate) returns (UserResponse) {};
+    rpc Update(UserUpdate) returns (UserResponse) {};
+    rpc Del(UserDelete) returns (UserResponse) {};
+}

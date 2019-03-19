@@ -1,0 +1,62 @@
+version: '2'
+
+tasks:
+
+  init-db:
+    desc: run migrations seeds and generate orm files at once
+    cmds:
+      - task: up-migrations
+      - task: seed
+      #- task: boiler
+
+  reset-db:
+    desc: refresh migrations
+    cmds:
+      - task: down-migrations
+      - task: up-migrations
+      - task: seed
+
+  up-migrations:
+    desc: run database migrations
+    cmds:
+      - migrate -verbose -path ./migrations -database postgres://docker:docker@192.168.99.100:5432/docker?sslmode=disable up
+
+  boiler:
+    desc: generate orm
+    cmds:
+      - sqlboiler --output="./mp-golang/orm/models" --config="sqlboiler.toml" --wipe --add-global-variants --no-tests --no-hooks psql
+
+  down-migrations:
+    desc: run database migrations down
+    cmds:
+      - migrate -verbose -path ./migrations -database postgres://docker:docker@192.168.99.100:5432/docker?sslmode=disable down
+
+  drop-migrations:
+    desc: run database migrations down
+    cmds:
+      - migrate -verbose -path ./migrations -database postgres://docker:docker@192.168.99.100:5432/docker?sslmode=disable drop
+
+  seed:
+    desc: seed  database with fake data
+    dir:  ./seeds
+    cmds:
+      - npm run seed:run
+
+  run:
+    desc: run fastify application
+    dir:  ./mp-fastify
+    cmds:
+      - npm run dev
+
+  pb:
+    desc: generate nodejs and golang files from protobuf
+    dir: ./proto
+    cmds:
+      - protoc -I ./ ./* --go_out=plugins=grpc:../mp-golang/orm/ormpb/
+      #- protoc --js_out=import_style=commonjs,binary:./mp-fastify/+pb/ orm.proto
+      - grpc_tools_node_protoc ./* --js_out=import_style=commonjs,binary:../mp-fastify/+pb/ --grpc_out=plugin=protoc-gen-grpc:../mp-fastify/+pb/
+
+  evans:
+    desc: evans repl
+    cmds:
+      - evans -p 50051 -r

@@ -1,0 +1,8 @@
+[psql]
+  dbname="docker"
+  host="192.168.99.100"
+  port=5432
+  user="docker"
+  pass="docker"
+  sslmode="disable"
+  blacklist = ["schema_migrations"]
